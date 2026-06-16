@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Complete Health Screening | Know Your Numbers. Own Your Health.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ── TOKENS ── */
+  :root {
+    --navy:       #0D2240;
+    --navy-mid:   #163459;
+    --teal:       #1B7F79;
+    --teal-light: #C8ECEA;
+    --cream:      #F7F4EE;
+    --gold:       #C8963C;
+    --white:      #FFFFFF;
+    --ink:        #1A1A2E;
+    --muted:      #5C6478;
+    --border:     #D9E2EC;
+
+    --display: 'DM Serif Display', Georgia, serif;
+    --body:    'Inter', system-ui, sans-serif;
+    --mono:    'JetBrains Mono', monospace;
+
+    --radius: 4px;
+    --max-w: 1080px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--navy);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    color: var(--white);
+    letter-spacing: 0.01em;
+  }
+  .logo span { color: var(--gold); }
+  nav a.nav-cta {
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+  nav a.nav-cta:hover { opacity: 0.88; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    color: var(--white);
+    padding: 96px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(27,127,121,0.22) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  /* Signature element: large ECG / pulse line watermark */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: var(--white);
+    clip-path: polygon(0 100%, 100% 100%, 100% 40%, 78% 40%, 76% 10%, 74% 40%, 26% 40%, 24% 60%, 22% 40%, 0 40%);
+  }
+  .hero-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    line-height: 1.12;
+    max-width: 720px;
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--teal-light);
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.78);
+    max-width: 560px;
+    margin-bottom: 44px;
+    line-height: 1.65;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 16px 36px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,150,60,0.35); }
+  .btn-ghost {
+    display: inline-block;
+    color: var(--white);
+    font-size: 0.9rem;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--white); }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: var(--teal);
+    color: var(--white);
+    padding: 22px 24px;
+  }
+  .trust-bar-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+  .trust-icon { font-size: 1.2rem; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 88px 24px; }
+  section.alt { background: var(--cream); }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .section-heading {
+    font-family: var(--display);
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    color: var(--navy);
+    line-height: 1.18;
+    max-width: 620px;
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+  .section-intro {
+    font-size: 1.02rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 52px;
+    line-height: 1.7;
+  }
+
+  /* ── WHY PREVENTIVE ── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+  }
+  .why-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    position: relative;
+  }
+  .why-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--teal);
+    border-radius: var(--radius) 0 0 var(--radius);
+  }
+  .why-card-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+  .why-card h3 {
+    font-family: var(--display);
+    font-size: 1.15rem;
+    color: var(--navy);
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+  .why-card p { font-size: 0.93rem; color: var(--muted); }
+
+  /* ── WHAT'S INCLUDED ── */
+  .tests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .test-row {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 26px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    background: var(--white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .test-row:hover {
+    border-color: var(--teal);
+    box-shadow: 0 4px 16px rgba(27,127,121,0.1);
+  }
+  .test-num {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--teal);
+    background: var(--teal-light);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+  .test-info h4 {
+    font-weight: 600;
+    font-size: 0.97rem;
+    color: var(--navy);
+    margin-bottom: 5px;
+  }
+  .test-info p { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+
+  /* ── BENEFITS ── */
+  .benefits-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .benefits-visual {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 44px 40px;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .benefits-visual::after {
+    content: '♥';
+    position: absolute;
+    right: -20px;
+    bottom: -30px;
+    font-size: 11rem;
+    opacity: 0.05;
+    line-height: 1;
+  }
+  .benefits-visual .big-stat {
+    font-family: var(--display);
+    font-size: 4.5rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .benefits-visual .stat-label {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 220px;
+    line-height: 1.5;
+    margin-bottom: 32px;
+  }
+  .benefits-divider { border: none; border-top: 1px solid rgba(255,255,255,0.12); margin-bottom: 24px; }
+  .mini-stat { margin-bottom: 20px; }
+  .mini-stat .num {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    color: var(--teal-light);
+    font-weight: 500;
+  }
+  .mini-stat p { font-size: 0.83rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
+  .benefit-list { list-style: none; }
+  .benefit-list li {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 0.97rem;
+    color: var(--ink);
+  }
+  .benefit-list li:last-child { border-bottom: none; }
+  .check {
+    width: 22px;
+    height: 22px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  /* ── FAQ ── */
+  .faq-list { max-width: 740px; margin: 0 auto; }
+  details {
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+  }
+  details:first-child { border-top: 1px solid var(--border); }
+  summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 0;
+    font-weight: 500;
+    font-size: 0.98rem;
+    color: var(--navy);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  .faq-icon {
+    font-size: 1.4rem;
+    color: var(--teal);
+    line-height: 1;
+    flex-shrink: 0;
+    font-weight: 300;
+    transition: transform 0.2s;
+  }
+  details[open] .faq-icon { transform: rotate(45deg); }
+  .faq-body {
+    padding: 0 0 22px;
+    font-size: 0.93rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  /* ── CTA STRIP ── */
+  .cta-strip {
+    background: var(--navy);
+    color: var(--white);
+    padding: 88px 24px;
+    text-align: center;
+  }
+  .cta-strip h2 {
+    font-family: var(--display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    max-width: 640px;
+    margin: 0 auto 18px;
+    line-height: 1.18;
+    font-weight: 400;
+  }
+  .cta-strip h2 em { font-style: italic; color: var(--teal-light); }
+  .cta-strip p {
+    color: rgba(255,255,255,0.68);
+    font-size: 1rem;
+    max-width: 440px;
+    margin: 0 auto 40px;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    align-items: center;
+  }
+  .btn-outline-white {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: var(--white);
+    font-size: 0.9rem;
+    padding: 15px 28px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline-white:hover { border-color: var(--white); background: rgba(255,255,255,0.07); }
+  .cta-reassurance {
+    margin-top: 24px;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.45);
+    padding: 28px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  footer a { color: rgba(255,255,255,0.6); text-underline-offset: 3px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .benefits-layout { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.1rem; }
+    .trust-bar-inner { gap: 18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Med<span>Verify</span></div>
+  <a href="#book" class="nav-cta">Book Screening</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Complete Health Screening Package</p>
+    <h1>Know Your Numbers.<br><em>Before They Become a Problem.</em></h1>
+    <p class="hero-sub">
+      A comprehensive panel of five clinically validated blood tests, designed for adults aged 30–55 who want a clear, medically accurate picture of what's happening inside — not guesswork.
+    </p>
+    <div class="hero-actions">
+      <a href="#book" class="btn-primary">Book My Screening — Starting at $89</a>
+      <a href="#included" class="btn-ghost">See what's tested ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item"><span class="trust-icon">🏥</span> CLIA-Certified Laboratory</div>
+    <div class="trust-item"><span class="trust-icon">⏱</span> Results in 24–48 Hours</div>
+    <div class="trust-item"><span class="trust-icon">👨‍⚕️</span> Physician-Reviewed Reports</div>
+    <div class="trust-item"><span class="trust-icon">🔒</span> HIPAA-Compliant & Confidential</div>
+    <div class="trust-item"><span class="trust-icon">📍</span> Walk-in or Home Collection</div>
+  </div>
+</div>
+
+<!-- WHY PREVENTIVE -->
+<section>
+  <div class="container">
+    <p class="section-label">Why It Matters</p>
+    <h2 class="section-heading">Most serious conditions give no warning — until they do.</h2>
+    <p class="section-intro">Conditions like type 2 diabetes, cardiovascular disease, and chronic kidney disease develop silently over years. Routine screening at age 30–55 is when early intervention is most effective.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-card-icon">🩺</span>
+        <h3>Catch Risk Early</h3>
+        <p>Pre-diabetic blood sugar, elevated LDL cholesterol, and borderline kidney markers are reversible at early stages — with lifestyle changes alone, in many cases.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-card-icon">📊</span>
+        <h3>Establish Your Baseline</h3>
+        <p>Your results give your doctor a baseline to compare against future tests, making it far easier to spot trends before they become diagnoses.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-card-icon">💊</span>
+        <h3>Make Informed Decisions</h3>
+        <p>Knowing your exact numbers — not estimates — lets you and your healthcare provider tailor medication, diet, and lifestyle guidance specifically to you.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-card-icon">🧘</span>
+        <h3>Reduce Health Anxiety</h3>
+        <p>Uncertainty is stressful. A clear, verified report replaces worry with actionable data — whether your results are within normal ranges or need attention.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED -->
+<section class="alt" id="included">
+  <div class="container">
+    <p class="section-label">The Panel</p>
+    <h2 class="section-heading">Five tests. One draw. A complete internal picture.</h2>
+    <p class="section-intro">Every test in this package was selected by our clinical team to address the most prevalent and actionable health risks for adults in their 30s, 40s, and 50s.</p>
+
+    <div class="tests-grid">
+      <div class="test-row">
+        <div class="test-num">01</div>
+        <div class="test-info">
+          <h4>Complete Blood Count (CBC)</h4>
+          <p>Evaluates red blood cells, white blood cells, hemoglobin, hematocrit, and platelets. Screens for anemia, infection, clotting disorders, and immune system conditions.</p>
+        </div>
+      </div>
+      <div class="test-row">
+        <div class="test-num">02</div>
+        <div class="test-info">
+          <h4>Blood Glucose (Fasting)</h4>
+          <p>Measures circulating blood sugar levels to screen for pre-diabetes and type 2 diabetes. Early detection enables dietary and pharmacological intervention before complications develop.</p>
+        </div>
+      </div>
+      <div class="test-row">
+        <div class="test-num">03</div>
+        <div class="test-info">
+          <h4>Lipid Profile</h4>
+          <p>Quantifies total cholesterol, LDL ("bad"), HDL ("good"), and triglycerides — the primary cardiovascular risk markers guiding treatment decisions for heart disease prevention.</p>
+        </div>
+      </div>
+      <div class="test-row">
+        <div class="test-num">04</div>
+        <div class="test-info">
+          <h4>Liver Function Tests (LFT)</h4>
+          <p>Measures enzymes and proteins (ALT, AST, ALP, bilirubin, albumin) to assess liver health. Identifies fatty liver disease, medication effects, and hepatic disorders at an early, treatable stage.</p>
+        </div>
+      </div>
+      <div class="test-row">
+        <div class="test-num">05</div>
+        <div class="test-info">
+          <h4>Kidney Function Tests (KFT / RFT)</h4>
+          <p>Evaluates creatinine, urea, uric acid, and electrolytes to assess how efficiently the kidneys are filtering waste. Essential for those with hypertension, diabetes risk, or family history of renal disease.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section>
+  <div class="container">
+    <div class="benefits-layout">
+      <div class="benefits-visual">
+        <div class="big-stat">80%</div>
+        <p class="stat-label">of chronic diseases are preventable or manageable when detected early through routine screening.*</p>
+        <hr class="benefits-divider" />
+        <div class="mini-stat">
+          <div class="num">1 in 3</div>
+          <p>US adults has prediabetes — and 80% don't know it. (CDC, 2023)</p>
+        </div>
+        <div class="mini-stat">
+          <div class="num">~50%</div>
+          <p>reduction in cardiovascular events linked to cholesterol management begun before age 55.</p>
+        </div>
+        <p style="font-size:0.72rem; color:rgba(255,255,255,0.3); margin-top:24px; line-height:1.5;">* WHO Global Status Report on Noncommunicable Diseases.</p>
+      </div>
+
+      <div>
+        <p class="section-label">What You Get</p>
+        <h2 class="section-heading" style="margin-bottom:28px;">More than a test.<br>A clear path forward.</h2>
+        <ul class="benefit-list">
+          <li><span class="check">✓</span>Certified lab results with normal reference ranges clearly annotated</li>
+          <li><span class="check">✓</span>Plain-language summary explaining what each result means for you</li>
+          <li><span class="check">✓</span>Physician-reviewed report flagging any values that need follow-up</li>
+          <li><span class="check">✓</span>Digital and printable report formats for your personal records</li>
+          <li><span class="check">✓</span>Optional 15-minute consultation with a healthcare professional to review findings</li>
+          <li><span class="check">✓</span>Fasting guidance and pre-test preparation checklist sent to you immediately after booking</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="alt">
+  <div class="container">
+    <p class="section-label" style="text-align:center;">FAQ</p>
+    <h2 class="section-heading" style="text-align:center; margin:0 auto 52px; max-width:540px;">Answers before you book.</h2>
+
+    <div class="faq-list">
+      <details open>
+        <summary>Do I need to fast before the blood draw? <span class="faq-icon">+</span></summary>
+        <p class="faq-body">Yes — a 10–12 hour fast is required before your appointment. This ensures accurate fasting blood glucose and triglyceride readings. You may drink plain water. We'll send a full preparation checklist after you book.</p>
+      </details>
+
+      <details>
+        <summary>How long does the blood draw take? <span class="faq-icon">+</span></summary>
+        <p class="faq-body">The actual blood collection takes approximately 5–10 minutes. We recommend arriving 10 minutes early to complete a brief intake form. Most patients are in and out within 20 minutes.</p>
+      </details>
+
+      <details>
+        <summary>When will I receive my results? <span class="faq-icon">+</span></summary>
+        <p class="faq-body">Processed results are delivered digitally within 24–48 hours of sample collection. You'll receive an email notification with a secure link to access and download your report.</p>
+      </details>
+
+      <details>
+        <summary>Are these results shared with my primary care physician? <span class="faq-icon">+</span></summary>
+        <p class="faq-body">Not automatically. Your results are private and HIPAA-protected. You can choose to share them with any provider you wish. We provide a shareable PDF formatted to standard medical records conventions.</p>
+      </details>
+
+      <details>
+        <summary>What if my results show an abnormal value? <span class="faq-icon">+</span></summary>
+        <p class="faq-body">All reports are reviewed by a licensed physician. If any value falls outside clinically normal ranges, a nurse will contact you within 24 hours to explain the finding and recommend appropriate next steps. Abnormal results do not necessarily mean disease — context always matters, and our team is trained to help you understand yours.</p>
+      </details>
+
+      <details>
+        <summary>Is this package suitable if I have a known condition like diabetes or hypertension? <span class="faq-icon">+</span></summary>
+        <p class="faq-body">Yes. This panel is beneficial both for early detection in healthy adults and for ongoing monitoring in those with existing conditions. If you are currently under a physician's care, we recommend sharing your results with them for integrated management.</p>
+      </details>
+
+      <details>
+        <summary>Is home sample collection available? <span class="faq-icon">+</span></summary>
+        <p class="faq-body">Yes, home collection is available in most service areas for a small additional fee. A certified phlebotomist will visit at your chosen time. Select the home visit option when booking.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip" id="book">
+  <h2>Your health in numbers.<br><em>Know them before they surprise you.</em></h2>
+  <p>Book your Complete Health Screening today. No referral required. Results in 24–48 hours.</p>
+  <div class="cta-row">
+    <a href="#" class="btn-primary" style="font-size:1rem; padding:18px 44px;">Book My Screening Now</a>
+    <a href="tel:+18005550000" class="btn-outline-white">📞 Call Us: 1-800-555-0000</a>
+  </div>
+  <p class="cta-reassurance">No referral needed &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; Cancel or reschedule anytime</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 MedVerify Health. All rights reserved. &nbsp;|&nbsp; <a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Terms of Service</a></p>
+  <p style="margin-top:8px; font-size:0.74rem;">This screening package is for informational and preventive purposes only. It does not constitute a medical diagnosis. Please consult a licensed healthcare provider regarding any health concerns.</p>
+</footer>
+
+<script>
+  // Smooth open/close animation for FAQ
+  document.querySelectorAll('details').forEach(d => {
+    d.addEventListener('toggle', () => {
+      if (d.open) {
+        d.querySelector('.faq-body').style.animation = 'none';
+      }
+    });
+  });
+</script>
+</body>
+</html>
